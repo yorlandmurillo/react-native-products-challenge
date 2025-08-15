@@ -21,6 +21,7 @@ function App() {
           />
           <Stack.Screen
             name="ProductDetailScreen"
+            options={{ title: 'Product Detail' }}
             component={ProductDetailScreen}
           />
         </Stack.Navigator>
