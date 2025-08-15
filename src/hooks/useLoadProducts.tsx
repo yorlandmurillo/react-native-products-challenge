@@ -6,6 +6,7 @@ export default function useLoadProducts() {
   const [products, setAllProducts] = useState<Product>();
   const [product, setProduct] = useState<ProductDetail>();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
 
   const fetchProducts = async (id: any = null) => {
     try {
@@ -27,8 +28,9 @@ export default function useLoadProducts() {
     } catch (err) {
       console.log('Err', err);
       setLoading(false);
+      setError(true);
     }
   };
 
-  return { products, product, loading, fetchProducts };
+  return { products, product, loading, error, fetchProducts };
 }
