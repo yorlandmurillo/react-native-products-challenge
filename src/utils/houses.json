@@ -1,0 +1,30 @@
+
+    {
+        "hogwart_castle": [
+          {
+            "name": "Gryffindor Common Room",
+            "color": "#ae0001",
+            "description": "A warm, cozy room for Gryffindor students, decorated with scarlet banners and a roaring fireplace.",
+            "location": "Gryffindor Tower, behind the Fat Lady's portrait"
+          },
+          {
+            "name": "Slytherin Common Room",
+            "color": "#2a623d",
+            "description": "An elegant and somewhat eerie common room, located beneath the Black Lake, with greenish light filtering through the windows.",
+            "location": "Dungeons, near the Potions classroom"
+          },
+          {
+            "name": "Ravenclaw Common Room",
+            "color": "#222f5b",
+            "description": "A spacious, airy room filled with books and star charts, with a domed ceiling painted like the night sky.",
+            "location": "Ravenclaw Tower, at the top of a spiral staircase"
+          },
+          {
+            "name": "Hufflepuff Common Room",
+            "color": "#f0c75e",
+            "description": "A warm, welcoming space with round doors and earthy decor, filled with plants and sunlight.",
+            "location": "Near the kitchens, in the basement"
+          }
+          
+        ]
+      }
