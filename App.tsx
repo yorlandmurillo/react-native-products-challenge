@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { PermissionsAndroid, Platform } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { PermissionsAndroid, Platform, Linking } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -33,9 +33,29 @@ function App() {
       }
     }
   };
+
+  const handleDeepLink = useCallback(async ({ url }: any) => {
+    var newUrl = '';
+    console.log('url', url);
+    try {
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, []);
+
   useEffect(() => {
     askPermission();
   });
+
+  useEffect(() => {
+    Linking.addEventListener('url', handleDeepLink);
+    Linking.getInitialURL().then((url: any) => {
+      if (url) {
+        handleDeepLink({ url });
+      }
+      return false;
+    });
+  }, [handleDeepLink]);
 
   return (
     <SafeAreaProvider>
