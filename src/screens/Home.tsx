@@ -49,7 +49,9 @@ export default function HomeScreen({ navigation, route }: any) {
     );
     setProducts(sorted);
     setRatingAsc(!ratingAsc);
+    if(selectedCat){
     filterProductSorted(sorted);
+    }
   };
 
   const sortByPrice = () => {
@@ -60,7 +62,9 @@ export default function HomeScreen({ navigation, route }: any) {
     );
     setProducts(sorted);
     setPriceAsc(!priceAsc);
+    if(selectedCat){
     filterProductSorted(sorted);
+    }
   };
 
   const sortFilterCleaner = () => {
