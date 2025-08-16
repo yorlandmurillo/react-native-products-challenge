@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   NativeModules,
+  Alert,
 } from 'react-native';
 import useLoadProducts from '../hooks/useLoadProducts';
 
@@ -32,7 +33,9 @@ export default function ProductDetailScreen({ navigation, route }: any) {
         endTime
       );
 
-      console.log('call', call);
+      if (call) {
+        Alert.alert('Reminder', 'Product reminder added successfully');
+      }
     } catch (e) {
       console.log('Error calling native event:', e);
     }
