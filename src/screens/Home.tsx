@@ -10,6 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import ProductItem from '../components/ProductItem';
+import useLoadCategories from '../hooks/useLoadCategories';
 import useLoadProducts from '../hooks/useLoadProducts';
 import { Product } from '../types/product';
 
@@ -18,12 +19,15 @@ const BUTTON_WIDTH = Math.min(320, Math.round(width * 0.88));
 
 export default function HomeScreen({ navigation }: any) {
   const { products, loading, fetchProducts } = useLoadProducts();
+  const { categories, loadingCategories, errorCategories, fetchCategories } =
+    useLoadCategories();
   const [productsFetch, setProducts] = useState<Product>();
   const [ratingAsc, setRatingAsc] = useState(true);
   const [priceAsc, setPriceAsc] = useState(true);
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
   useEffect(() => {
     if (products) {
