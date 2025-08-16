@@ -3,7 +3,7 @@ import { Product } from '../types/product';
 import { ProductDetail } from '../types/productDetail';
 
 export default function useLoadProducts() {
-  const [products, setAllProducts] = useState<Product>();
+  const [products, setAllProducts] = useState<Products>();
   const [product, setProduct] = useState<ProductDetail>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(true);

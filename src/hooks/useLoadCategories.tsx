@@ -13,7 +13,7 @@ export default function useLoadCategories() {
       const response = await fetch(url);
 
       const data = await response.json();
-      setAllCategories(data?.products);
+      setAllCategories(data);
 
       setLoading(false);
     } catch (err) {

@@ -9,3 +9,5 @@ export type Product = {
   category: string;
   rating: string;
 };
+
+export type Products = Product[];

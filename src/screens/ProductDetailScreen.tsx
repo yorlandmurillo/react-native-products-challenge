@@ -5,7 +5,6 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import useLoadProducts from '../hooks/useLoadProducts';

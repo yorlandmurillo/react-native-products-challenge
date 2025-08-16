@@ -9,25 +9,22 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
+import CategoriesFilter from '../components/CategoriesFilter';
 import ProductItem from '../components/ProductItem';
-import useLoadCategories from '../hooks/useLoadCategories';
 import useLoadProducts from '../hooks/useLoadProducts';
-import { Product } from '../types/product';
+import { Product, Products } from '../types/product';
 
 const { width } = Dimensions.get('window');
-const BUTTON_WIDTH = Math.min(320, Math.round(width * 0.88));
 
 export default function HomeScreen({ navigation }: any) {
   const { products, loading, fetchProducts } = useLoadProducts();
-  const { categories, loadingCategories, errorCategories, fetchCategories } =
-    useLoadCategories();
-  const [productsFetch, setProducts] = useState<Product>();
+  const [productsFetch, setProducts] = useState<Products>();
   const [ratingAsc, setRatingAsc] = useState(true);
   const [priceAsc, setPriceAsc] = useState(true);
+  const [selectedCat, setSelectedCat] = useState<string>('');
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
   }, []);
   useEffect(() => {
     if (products) {
@@ -55,8 +52,9 @@ export default function HomeScreen({ navigation }: any) {
     setPriceAsc(!priceAsc);
   };
 
-  const sortCleared = () => {
+  const sortFilterCleaner = () => {
     setProducts(products);
+    setSelectedCat('');
   };
 
   const pressGoToDetails = (id: number) => {
@@ -66,6 +64,14 @@ export default function HomeScreen({ navigation }: any) {
   const renderItem = ({ item }: { item: Product }) => (
     <ProductItem item={item} pressGoToDetails={pressGoToDetails} />
   );
+
+  const onSelectCategory = (cat: string) => {
+    setSelectedCat(cat);
+    const productsFiltered = products?.filter(
+      (item: Product) => cat === item.category
+    );
+    setProducts(productsFiltered);
+  };
 
   if (loading) {
     return (
@@ -84,9 +90,16 @@ export default function HomeScreen({ navigation }: any) {
         <TouchableOpacity style={styles.button} onPress={sortByPrice}>
           <Text style={styles.buttonText}>Sort by Price</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={sortCleared}>
-          <Text style={styles.buttonText}>Clear</Text>
+        <TouchableOpacity style={styles.button} onPress={sortFilterCleaner}>
+          <Text style={styles.buttonText}>Clear All</Text>
         </TouchableOpacity>
+      </View>
+      <View>
+        <CategoriesFilter
+          onSelectCategory={onSelectCategory}
+          selectedCat={selectedCat}
+          setSelectedCat={setSelectedCat}
+        ></CategoriesFilter>
       </View>
       <View style={styles.container}>
         <FlatList
