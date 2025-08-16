@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }: any) {
   }, []);
   useEffect(() => {
     if (products) {
-      sortCleared();
+      sortFilterCleaner();
     }
   }, [products]);
 
@@ -40,6 +40,7 @@ export default function HomeScreen({ navigation }: any) {
     );
     setProducts(sorted);
     setRatingAsc(!ratingAsc);
+    filterProductSorted(sorted);
   };
 
   const sortByPrice = () => {
@@ -50,6 +51,7 @@ export default function HomeScreen({ navigation }: any) {
     );
     setProducts(sorted);
     setPriceAsc(!priceAsc);
+    filterProductSorted(sorted);
   };
 
   const sortFilterCleaner = () => {
@@ -69,6 +71,13 @@ export default function HomeScreen({ navigation }: any) {
     setSelectedCat(cat);
     const productsFiltered = products?.filter(
       (item: Product) => cat === item.category
+    );
+    setProducts(productsFiltered);
+  };
+
+  const filterProductSorted = (sorted: Products) => {
+    const productsFiltered = sorted?.filter(
+      (item: Product) => selectedCat === item.category
     );
     setProducts(productsFiltered);
   };
