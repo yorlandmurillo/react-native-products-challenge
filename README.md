@@ -31,4 +31,14 @@ npx react-native run-android
 
 ```
 
+## Deeplink Test
+
+You can use those URL from your devices notes or whatsapp to test the deepLinks:
+
+For category:
+https://modak.challenge.com/category/furniture
+
+For a specific product
+https://modak.challenge.com/product/2
+
 ### Preview

@@ -16,16 +16,25 @@ import { Product, Products } from '../types/product';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen({ navigation, route }: any) {
   const { products, loading, fetchProducts } = useLoadProducts();
   const [productsFetch, setProducts] = useState<Products>();
   const [ratingAsc, setRatingAsc] = useState(true);
   const [priceAsc, setPriceAsc] = useState(true);
   const [selectedCat, setSelectedCat] = useState<string>('');
-
+  console.log('route=>', route);
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    //apply filter category
+    if (route?.params?.id) {
+      const catId = route?.params?.id;
+      onSelectCategory(catId);
+    }
+  }, [route]);
+
   useEffect(() => {
     if (products) {
       sortFilterCleaner();

@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './src/screens/Home';
+import { useNavigation } from '@react-navigation/native';
 import ProductDetailScreen from './src/screens/ProductDetailScreen';
 
 const Stack = createStackNavigator<any>();
@@ -34,32 +35,56 @@ function App() {
     }
   };
 
-  const handleDeepLink = useCallback(async ({ url }: any) => {
-    var newUrl = '';
-    console.log('url', url);
-    try {
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }, []);
-
   useEffect(() => {
     askPermission();
   });
 
-  useEffect(() => {
-    Linking.addEventListener('url', handleDeepLink);
-    Linking.getInitialURL().then((url: any) => {
-      if (url) {
-        handleDeepLink({ url });
+  const AppLinksChecker = () => {
+    const navigation = useNavigation<any>();
+    const handleDeepLink = useCallback(async ({ url }: any) => {
+      try {
+        if (url.search('/category/') > 0) {
+          var valueId = url.split('category/');
+          var catId = {
+            id: valueId[1],
+          };
+
+          //little time to iniciate the app if it is closed
+          setTimeout(() => {
+            navigation.navigate('HomeScreen', catId);
+          }, 500);
+        } else if (url.search('/product/') > 0) {
+          var valueId = url.split('product/');
+          var prodId = {
+            id: valueId[1],
+          };
+
+          setTimeout(() => {
+            navigation.navigate('ProductDetailScreen', prodId);
+          }, 500);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-      return false;
-    });
-  }, [handleDeepLink]);
+    }, []);
+
+    useEffect(() => {
+      Linking.addEventListener('url', handleDeepLink);
+      Linking.getInitialURL().then((url: any) => {
+        if (url) {
+          handleDeepLink({ url });
+        }
+        return false;
+      });
+    }, [handleDeepLink]);
+
+    return <></>;
+  };
 
   return (
     <SafeAreaProvider>
       <NavigationContainer>
+        <AppLinksChecker />
         <Stack.Navigator initialRouteName="HomeScreen">
           <Stack.Screen
             name="HomeScreen"
