@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation }: any) {
   }
   return (
     <SafeAreaView style={styles.safe}>
-      <Text style={styles.titleScreen}>Products</Text>
+      <Text style={styles.titleScreen}>List of Products</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button} onPress={sortByRating}>
           <Text style={styles.buttonText}>Sort By Rating</Text>
@@ -156,11 +156,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   titleScreen: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginVertical: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#006a61',
     textAlign: 'center',
+    marginVertical: 20,
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });
