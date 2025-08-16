@@ -1,4 +1,4 @@
-This is a new React Native Project for Modak for list Products, sort by ranking and prices, and filter by categories, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a new React Native Project for Modak to list Products, sort by ranking and prices, filter by categories, add a product purchase reminder and deeplink for categories bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
 
