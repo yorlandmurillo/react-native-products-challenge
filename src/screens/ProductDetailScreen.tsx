@@ -6,8 +6,11 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  NativeModules,
 } from 'react-native';
 import useLoadProducts from '../hooks/useLoadProducts';
+
+const { CalendarModule } = NativeModules;
 
 export default function ProductDetailScreen({ navigation, route }: any) {
   const productId = route.params.id;
@@ -18,8 +21,21 @@ export default function ProductDetailScreen({ navigation, route }: any) {
     fetchProducts(productId);
   }, []);
 
-  const rememberInCalendar = () => {
-    console.log('native call');
+  const rememberInCalendar = async (title: string | any) => {
+    try {
+      const startTime = new Date().getTime();
+      const endTime = startTime + 60 * 120 * 1000; // +2 hoours
+      const call = await CalendarModule?.addEvent(
+        `Buy ${title}`,
+        `Remember to buy ${title} today`,
+        startTime,
+        endTime
+      );
+
+      console.log('call', call);
+    } catch (e) {
+      console.log('Error calling native event:', e);
+    }
   };
 
   if (loading) {
@@ -72,7 +88,9 @@ export default function ProductDetailScreen({ navigation, route }: any) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={rememberInCalendar(product?.title)}
+          onPress={() => {
+            rememberInCalendar(product?.title);
+          }}
         >
           <Text style={styles.buttonText}>Remember me to buy it </Text>
         </TouchableOpacity>
