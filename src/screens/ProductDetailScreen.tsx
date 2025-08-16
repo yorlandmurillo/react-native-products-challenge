@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import useLoadProducts from '../hooks/useLoadProducts';
 
@@ -18,10 +19,16 @@ export default function ProductDetailScreen({ navigation, route }: any) {
     fetchProducts(productId);
   }, []);
 
+  const rememberInCalendar = () => {
+    console.log('native call');
+  };
+
   if (loading) {
     return (
-      <View style={styles.loading}>
-        <Text>Loading...</Text>
+      <View style={styles.container}>
+        <View style={styles.loading}>
+          <Text>Loading...</Text>
+        </View>
       </View>
     );
   }
@@ -62,6 +69,15 @@ export default function ProductDetailScreen({ navigation, route }: any) {
         <Text style={styles.bold}>Shipping: </Text>
         {product?.shippingInformation}
       </Text>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={rememberInCalendar(product?.title)}
+        >
+          <Text style={styles.buttonText}>Remember me to buy it </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -72,6 +88,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
+  },
+  loading: {
+    alignItems: 'center',
+    padding: 10,
   },
   containerImg: {
     alignItems: 'center',
@@ -99,4 +119,21 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
   bold: { fontWeight: 'bold' },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    marginVertical: 16,
+  },
+  button: {
+    backgroundColor: '#006a61',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
 });
